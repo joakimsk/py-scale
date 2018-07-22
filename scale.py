@@ -18,6 +18,8 @@ class Scale:
         self._tweight = 0.0
         self._npcs = 0
         self._unit = 'NA'
+        self._thread_start = time.thread_time()
+        self._last_comms = 0.0
         try:
             self.poll(self._socket)
         except:
@@ -27,7 +29,9 @@ class Scale:
     def poll(self, sock):
         for line in self.readlines(sock):
             self.scaleline(line)
-            print(self._id, self._status, self._dweight, self._tweight, self._npcs, self._unit)
+            self._last_comms = time.thread_time()
+            print self._last_comms
+            #print(self._id, self._status, self._dweight, self._tweight, self._npcs, self._unit)
         poll()
 
     def scaleline(self, line):
