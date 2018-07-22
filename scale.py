@@ -30,7 +30,7 @@ class Scale:
         for line in self.readlines(sock):
             self.scaleline(line)
             self._last_comms = time.thread_time()
-            print self._last_comms
+            print(self._last_comms)
             #print(self._id, self._status, self._dweight, self._tweight, self._npcs, self._unit)
         poll()
 
