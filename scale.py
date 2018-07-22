@@ -5,6 +5,7 @@
 
 import socket
 import sys
+import time
 
 class Scale:
     def __init__(self, ip, port):
