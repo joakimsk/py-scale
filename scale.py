@@ -7,6 +7,7 @@ import socket
 import sys
 import time
 from threading import Thread
+from decimal import *
 
 class Scale:
     def __init__(self, ip, port):
@@ -39,8 +40,8 @@ class Scale:
             id, status, dweight, tweight, npcs, unit = line.split(',')
             self._id = int(id.strip())
             self._status = str(status.strip())
-            self._dweight = float(dweight.strip())
-            self._tweight = float(tweight.strip())
+            self._dweight = '{}'.format(Decimal(dweight.strip()).quantize(Decimal('.001'), rounding=ROUND_HALF_EVEN))
+            self._tweight = '{}'.format(Decimal(tweight.strip()).quantize(Decimal('.001'), rounding=ROUND_HALF_EVEN))
             self._npcs = int(npcs.strip())
             self._unit = str(unit.strip())
         except ValueError as err:
@@ -70,6 +71,7 @@ def main():
     while True:
         data = myscale.lastdata()
         print(data)
+
 
 if __name__ == '__main__':
     main()
