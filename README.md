@@ -31,5 +31,8 @@ You can either use UDP or TCP Client / Server Mode on the converter. I recommend
 
 The <CR><LF> two-byte delimiter is represented by \x0d\x0a in hexadecimal, this can be used in "Data Packing" settings of the converter.
 
+# Windows Firewall
+If you have to deal with Windows, remember that the firewall is likely blocking your UDP packets. Add a rule to allow.
+
 # Verified supported scales
 ScaleIT PSX30 with DINI DFWLKI panel and DINI PBQI30 base and Moxa NPORT 5110A RS232-ETH Converter
