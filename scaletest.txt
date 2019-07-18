@@ -1,0 +1,39 @@
+Frame 1 - water is on scale, number shows 0.020
+Time now: 14.8870599269
+Last rcvd: 14.8869659900
+
+Frame 10 - first weight msg received
+Time now: 15.4498732089999634
+Last rcvd: 15.4497230052948
+Weight = 0.070
+
+Scaleit display shows: 0.298 and counting
+12 msg received last second
+
+Frame 20 - Water is mostly stable
+Time now: 15.765162944793701
+Last rcvd: 15.765072107315063
+Weight = 0.285
+12 msg receivd last second
+
+Scaleit display shows: 0.420
+
+Frame 29 - Both displays are now equal
+Time now: 16.21394395828247
+Last rcvd: 16.21378803253174
+
+Scaleit display shows: 0.425
+9 msg received last second
+
+
+From input to output, 29 frames.
+Stable is about 10 pictures later. ST
+Time now: 16.93033790588379
+Last rcvd: 16.9302499294281
+STABLE
+
+MEDIA INFO:
+25 FPS H264
+
+Total time from input to output is thus:
+29/25 = 1.16 sec
