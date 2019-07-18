@@ -37,6 +37,8 @@ In my case, the video recorded was taken with 25 frames per second, and I counte
 
 You can adjust baud rates and other settings to try to get better performance.
 
+In addition, the filters on the scale can be changed to what suits you. It may be wise to test with highest possible baud rate between the converter and scale, and see how many messages get throughput, and how fast.
+
 # Windows Firewall
 If you have to deal with Windows, remember that the firewall is likely blocking your UDP packets. Add a rule to allow.
 
