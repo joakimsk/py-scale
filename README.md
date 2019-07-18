@@ -30,7 +30,7 @@ You can either use UDP or TCP Client / Server Mode on the converter. I recommend
 
 The <CR><LF> two-byte delimiter is represented by \x0d\x0a in hexadecimal, this can be used in "Data Packing" settings of the converter.
 
-# Tuning for best performance
+# Tuning for best performance using scalecalib.py
 To check communication performance, use the simple display program, and record using a video. Count frames from weight increases on the panel, to when weight is equal in display program and STABLE is indicated (First parameter is ST).
 
 In my case, the video recorded was taken with 25 frames per second, and I counted 29 frames from initial weight is detected by scale untill display program shows same weight. 29/25=1.16 sec, more or less.
