@@ -24,12 +24,18 @@ ST,GS,   0.000,kg<CR><LF>
 # Setup of Moxa NPORT 5110A RS232-ETH Converter
 Manual [NPort_5100A_Series_Users_Manual_v2.pdf](http://support.elmark.com.pl/moxa/products/Serwery_portow_szeregowych/NPort_P5150A/manual/NPort_5100A_Series_Users_Manual_v2.pdf) 
 
-
 Remember to upgrade to latest firmware, a lot of faults gets fixed.
 
 You can either use UDP or TCP Client / Server Mode on the converter. I recommend UDP since traffic will flow one way, and I prioritize in-time delivery of data more than accuracy.
 
 The <CR><LF> two-byte delimiter is represented by \x0d\x0a in hexadecimal, this can be used in "Data Packing" settings of the converter.
+
+# Tuning for best performance
+To check communication performance, use the simple display program, and record using a video. Count frames from weight increases on the panel, to when weight is equal in display program and STABLE is indicated (First parameter is ST).
+
+In my case, the video recorded was taken with 25 frames per second, and I counted 29 frames from initial weight is detected by scale untill display program shows same weight. 29/25=1.16 sec, more or less.
+
+You can adjust baud rates and other settings to try to get better performance.
 
 # Windows Firewall
 If you have to deal with Windows, remember that the firewall is likely blocking your UDP packets. Add a rule to allow.
