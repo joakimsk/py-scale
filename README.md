@@ -1,6 +1,6 @@
 # scale
 
-A module for interfacing with scales. Tested on OS X High Sierra with Python 3.7.
+A module for interfacing with scales. Tested on OS X Mojave with Python 3.7.
 
 Uses a thread to do work without blocking, need to poll data.
 
@@ -31,13 +31,16 @@ You can either use UDP or TCP Client / Server Mode on the converter. I recommend
 The <CR><LF> two-byte delimiter is represented by \x0d\x0a in hexadecimal, this can be used in "Data Packing" settings of the converter.
 
 # Tuning for best performance using scalecalib.py
-To check communication performance, use the simple display program, and record using a video. Count frames from weight increases on the panel, to when weight is equal in display program and STABLE is indicated (First parameter is ST).
+To check communication performance, use the simple display program, and record using a video. Count frames from weight increases on the panel, to when weight is equal in display program and on scale.
 
-In my case, the video recorded was taken with 25 frames per second, and I counted 29 frames from initial weight is detected by scale untill display program shows same weight. 29/25=1.16 sec, more or less.
 
-You can adjust baud rates and other settings to try to get better performance.
+In default configuration, the scale was using "Filter level 3". The video recorded was taken with 25 frames per second, and I counted 29 frames from initial weight is detected by scale untill display program shows same weight. 29/25=1.16 sec, more or less. This is an averaging filter, so increased filtering means more samples must be taken before an average is calculated.
 
-In addition, the filters on the scale can be changed to what suits you. It may be wise to test with highest possible baud rate between the converter and scale, and see how many messages get throughput, and how fast.
+I modified scale filter to "Filter level 0", but the scale acted spurious, so I set it up to "Filter level 1". Now, I count only 1 frame between scale indicator and display program. 0.04 sec from scale display to computer is good.
+
+You can adjust baud rates and other settings to try to get better performance. For me, it seems 19200 baud is good enough, and we get up to 28 messages per second. The communication between the converter and scale should be "as fast as possible", so 115200 should still be good, as long as communication does not break down due to noise. Anything below 19200 baud seems to throttle messages, leading to longer delays, and possibly filling up buffers.
+
+On the UDP receiving end, it seems that the Windows laptop I use, only manages up to 10-12 messages while the UI is running, and 28 when the UI is turned off. Curses is probably a better idea for the UI when calibrating.
 
 # Windows Firewall
 If you have to deal with Windows, remember that the firewall is likely blocking your UDP packets. Add a rule to allow.
