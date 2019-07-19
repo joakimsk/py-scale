@@ -9,6 +9,10 @@ Line identification not optimal, drops maybe 15% of lines.
 # Setup of DINI DFWLKI panel RS232 output
 See page 41 in [TECH_MAN_ENG_DFW_v4.pdf](http://www.diniargeo.by/Downloads/INDIKATORY/Series_DFW/TECH_MAN_ENG_DFW_v4.pdf) for description of communication strings. See page 12 and onwards for Serial Port configuration.
 
+Other manuals that may contain more information:
+[Technical Manual DGT.pdf](https://www.vetek.se/Dynamics/Documents/72b4f220-71ff-4204-84e5-cc16a9755bad/Technical%20Manual%20DGT.pdf)
+[DFWT_01.05_15.10_EN_T.pdf](http://www.diniargeo.by/Downloads/INDIKATORY/Series_DFW/DFWT_01.05_15.10_EN_T.pdf)
+
 My panel diverges in the settings of the menu, so you may need to map the menus out on paper and try your way around. Decimals may very well also be configurable.
 
 The extended string format, according to the manual:
