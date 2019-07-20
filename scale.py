@@ -26,7 +26,7 @@ class Scale():
         self.BUFFER = bytearray(MESSAGESIZE) # Initialize a byte buffer of length MESSAGESIZE
         self.MEMORYVIEW_BUFFER = memoryview(self.BUFFER) # Make memoryview for slicing
         self._dweight = 0.0
-        self._time_received = None
+        self._time_received = 0.0
         self.UDP_IP = "0.0.0.0" # Localhost IP for correct interface
         self.UDP_BIND_PORT = UDP_BIND_PORT
 
