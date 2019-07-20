@@ -12,7 +12,7 @@ Last edited: August 2017
 import sys
 import os
 from PyQt5.QtWidgets import (QFrame, QDesktopWidget, QMainWindow, QAction, QWidget, qApp, QGridLayout,
-    QPushButton, QApplication, QVBoxLayout, QLabel)
+    QPushButton, QApplication, QVBoxLayout, QLabel, QLineEdit)
 from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal, QRect
 from PyQt5.QtGui import (QIcon, QFont, QPainter, QBrush, QColor)
 
@@ -85,22 +85,53 @@ class ScaleFrame(QFrame):
             super(Board, self).timerEvent(event)
 
 
-class ToolBox(QWidget):
+class LabelFrame(QWidget):
     def __init__(self, parent):
-        super(ToolBox, self).__init__(parent)
+        super(LabelFrame, self).__init__(parent)
         self.parent = parent
-        print('ToolBox: my parent is',self.parent)
-        self.initUI()
+        print('LabelFrame: my parent is',self.parent)
+        self.initFrame()
 
-    def initUI(self):
-        btn = [QPushButton('B', self) for i in range(6)]
-        for Btn in btn:
-            Btn.resize(30, 30)
-        self.resize(60, 90)
-        k = 0
-        for i in range(6):
-            btn[i].move((i%2)*30, k*30)
-            k += 1 if i % 2 == 1 else 0
+    def initFrame(self):
+        layout = QGridLayout()
+
+        lbl_language = QLabel('Language')
+        input_language = QLineEdit()
+
+        lbl_product = QLabel('Product')
+        input_product = QLineEdit()
+
+        lbl_grade = QLabel('Grade')
+        input_grade = QLineEdit()
+
+        lbl_processing = QLabel('Processing')
+        input_processing = QLineEdit()
+
+        lbl_batch = QLabel('Processing')
+        input_batch = QLineEdit()
+
+        lbl_harvest_date = QLabel('Harvest date')
+        input_harvest_date = QLineEdit()
+
+        lbl_customer = QLabel('Customer')
+        input_customer = QLineEdit()
+
+        layout.setSpacing(10)
+        layout.addWidget(lbl_language, 1, 0)
+        layout.addWidget(input_language, 1, 1)
+        layout.addWidget(lbl_product, 2, 0)
+        layout.addWidget(input_product, 2, 1)
+        layout.addWidget(lbl_grade, 3, 0)
+        layout.addWidget(input_grade, 3, 1)
+        layout.addWidget(lbl_processing, 4, 0)
+        layout.addWidget(input_processing, 4, 1)
+        layout.addWidget(lbl_batch, 5, 0)
+        layout.addWidget(input_batch, 5, 1)
+        layout.addWidget(lbl_harvest_date, 6, 0)
+        layout.addWidget(input_harvest_date, 6, 1)
+        layout.addWidget(lbl_customer, 7, 0)
+        layout.addWidget(input_customer, 7, 1)
+        self.setLayout(layout) 
 
 
 class CentralFrame(QFrame):
@@ -118,10 +149,10 @@ class CentralFrame(QFrame):
         printbtn.clicked.connect(QApplication.instance().quit)
         printbtn.resize(printbtn.sizeHint())
 
-        toolbox = ToolBox(self)
+        labelframe = LabelFrame(self)
         scaleframe = ScaleFrame(self)
 
-        layout.addWidget(toolbox)
+        layout.addWidget(labelframe)
         layout.addWidget(scaleframe)
         layout.addWidget(printbtn)
         self.setLayout(layout)
@@ -156,7 +187,7 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon(path))
         self.setGeometry(800, 600, 800, 600)
         self.center()
-        self.setWindowTitle('Icon')
+        self.setWindowTitle('Seafood Packing Software')
         self.show()
 
     def center(self):
