@@ -111,7 +111,7 @@ def main(argv):
                 no = 0
                 lastsecond = currentsecond
 
-            clear()
+            #clear()
             print(F"data: {BUFFER[:-len(TERMINATION)].decode()}")
             print(F"current time:         {time.time()-start_time}")
             print(F"last msg received at: {received_at_time}")

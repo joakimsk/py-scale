@@ -12,33 +12,84 @@ Last edited: August 2017
 import sys
 import os
 from PyQt5.QtWidgets import (QFrame, QDesktopWidget, QMainWindow, QAction, QWidget, qApp, QGridLayout,
-    QPushButton, QApplication, QVBoxLayout)
-from PyQt5.QtGui import (QIcon, QFont)
+    QPushButton, QApplication, QVBoxLayout, QLabel)
+from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal, QRect
+from PyQt5.QtGui import (QIcon, QFont, QPainter, QBrush, QColor)
 
+from scale import Scale
 
 class ScaleFrame(QFrame):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent):
+        super(ScaleFrame, self).__init__(parent)
+        self.parent = parent
+        print('ScaleFrame: my parent is',self.parent)
         self.initFrame()
 
     def initFrame(self):
-        qbtn = QPushButton('Jalla', self)
-        qbtn.clicked.connect(QApplication.instance().quit)
-        qbtn.resize(qbtn.sizeHint())
-        qbtn.move(150, 150)
-        self.setObjectName('MainWidget')
+        self.timer = QBasicTimer()
+        self.myscale = Scale(10202)
+
+        self.lbl_weight = QLabel(self)
+        self.lbl_weight.setObjectName('lbl_weight')
+        self.lbl_weight.setText("0.000")
+        self.lbl_weight.resize(500, 100)
+        self.lbl_weight.move(200, 50)
+
+        lbl_unit = QLabel(self)
+        lbl_unit.setObjectName('lbl_unit')
+        lbl_unit.setText("kg")
+        lbl_unit.resize(100, 120)
+        lbl_unit.move(500, 40)
+
+        #self.lbl_status = QLabel(self)
+        #self.lbl_status.setText("MAYBE ON")
+        #self.lbl_status.resize(100, 100)
+        #self.lbl_status.move(700, 10)
+
+
+        #qbtn = QPushButton('Jalla', self)
+        #qbtn.clicked.connect(QApplication.instance().quit)
+        #qbtn.resize(qbtn.sizeHint())
+        #qbtn.move(150, 150)
+
+        self.setObjectName('ScaleFrame')
         self.setStyleSheet("""
-            #MainWidget {
-                background-color: #00ff00;
+            #ScaleFrame {
+                background-color: #cfcfcf;
+            }
+            .QLabel#lbl_weight {
+                font-size:100pt;
+                color: #ff0000;
+            }
+            .QLabel#lbl_unit {
+                font-size:100pt;
+                color: #000000;
             }
             .QLabel {
-                color: #fff;
+                font-size:22pt;
+                color: #000000;
             }
         """)
+        self.start_timer()
+
+    def start_timer(self):
+        self.timer.start(100, self)
+
+    def timerEvent(self, event):
+        '''handles timer event'''
+        if event.timerId() == self.timer.timerId():
+            time_last_received, weight = self.myscale.return_last_weight()
+            self.window().statusbar.showMessage(F"Last received: {time_last_received}")
+            self.lbl_weight.setText(F"{weight:.3f}")
+        else:
+            super(Board, self).timerEvent(event)
+
 
 class ToolBox(QWidget):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent):
+        super(ToolBox, self).__init__(parent)
+        self.parent = parent
+        print('ToolBox: my parent is',self.parent)
         self.initUI()
 
     def initUI(self):
@@ -53,47 +104,39 @@ class ToolBox(QWidget):
 
 
 class CentralFrame(QFrame):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent):
+        super(CentralFrame, self).__init__(parent)
+        self.parent = parent
+        print('CentralFrame: my parent is',self.parent)
         self.initFrame()
 
     def initFrame(self):
-
         layout = QVBoxLayout()
 
 
-        qbtn = QPushButton('Queit', self)
-        qbtn.clicked.connect(QApplication.instance().quit)
-        qbtn.resize(qbtn.sizeHint())
+        printbtn = QPushButton('Print Label', self)
+        printbtn.clicked.connect(QApplication.instance().quit)
+        printbtn.resize(printbtn.sizeHint())
 
-
-        toolbox = ToolBox()
-
-        scaleframe = ScaleFrame()
-        #scaleframe.setFrameShadow(QFrame.Sunken)
-        #scaleframe.resize(200,200)
-        #scaleframe.setFrameStyle(QFrame.StyledPanel | QFrame.Sunken)
-        #scaleframe.move(50, 50)
+        toolbox = ToolBox(self)
+        scaleframe = ScaleFrame(self)
 
         layout.addWidget(toolbox)
-        layout.addWidget(qbtn)
         layout.addWidget(scaleframe)
+        layout.addWidget(printbtn)
         self.setLayout(layout)
 
-        #testcolor = QPalette().color(QPalette.Window)
-        #self.setStyleSheet('QPlainTextEdit[readOnly="true"] { background-color: %s;} QFrame {border: 0px}' % testcolor.name() )
-        #self.setPalette(QPalette(self.colorForLanguage('green')))
-
-
 class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent):
+        super(MainWindow, self).__init__(parent)
+        self.parent = parent
+        print('MainWindow: my parent is',self.parent)
         self.initUI()
 
     def initUI(self):
 
 
-        centralframe = CentralFrame()
+        centralframe = CentralFrame(self)
         self.setCentralWidget(centralframe)
 
         exitAct = QAction(QIcon('exit.png'), '&Exit', self)        
@@ -102,7 +145,8 @@ class MainWindow(QMainWindow):
         exitAct.setStatusTip('Exit application')
         exitAct.triggered.connect(qApp.quit)
 
-        self.statusBar()
+        self.statusbar = self.statusBar()
+        self.statusbar.showMessage('Ready')
 
         menubar = self.menuBar()
         fileMenu = menubar.addMenu('&File')
@@ -116,7 +160,6 @@ class MainWindow(QMainWindow):
         self.show()
 
     def center(self):
-        
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
@@ -125,5 +168,6 @@ class MainWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    mainwindow = MainWindow()
+    parent = QMainWindow()
+    mainwindow = MainWindow(parent)
     sys.exit(app.exec_())
