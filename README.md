@@ -12,6 +12,7 @@ See page 41 in [TECH_MAN_ENG_DFW_v4.pdf](http://www.diniargeo.by/Downloads/INDIK
 Other manuals that may contain more information:
 [Technical Manual DGT.pdf](https://www.vetek.se/Dynamics/Documents/72b4f220-71ff-4204-84e5-cc16a9755bad/Technical%20Manual%20DGT.pdf)
 [DFWT_01.05_15.10_EN_T.pdf](http://www.diniargeo.by/Downloads/INDIKATORY/Series_DFW/DFWT_01.05_15.10_EN_T.pdf)
+[DFW_03_14.11_EN_U.pdf](http://www.diniargeo.com/VisFile.aspx?file=MN2028&Name=pAFkSrb0pwzJyn2%2FCB1Ph4ijBObaTfkGAPxemIHIx6w%3D)
 
 My panel diverges in the settings of the menu, so you may need to map the menus out on paper and try your way around. Decimals may very well also be configurable.
 
