@@ -2,6 +2,8 @@
 
 A module for interfacing with scales. Tested on OS X Mojave with Python 3.7.
 
+Not supposed to be run standalone.
+
 Uses a thread to do work without blocking, need to poll data.
 
 Line identification not optimal, drops maybe 15% of lines.
